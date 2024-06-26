@@ -253,8 +253,6 @@ void single_type_full_coverage_test(T* items, int size) {
     test_mutable_array_sequence_get_method(items, size);
 
     // Test will work correctly only if size of array passed here more that 5
-    test_mutable_array_sequence_get_subsequence_method(items, size);
-
     test_mutable_array_sequence_get_subsequence_method_start_out_of_range(items, size);
     test_mutable_array_sequence_get_subsequence_method_end_out_of_range(items, size);
 

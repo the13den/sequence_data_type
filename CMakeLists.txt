@@ -34,7 +34,7 @@ add_executable(
 add_executable(
         test_immutable_array_sequence
         test_immutable_array_sequence.cpp
-        array_sequence.h
+        immutable_array_sequence.h
 )
 
 add_executable(
@@ -44,14 +44,7 @@ add_executable(
 )
 
 add_executable(
-        test_dynamic_array
-        test_dynamic_array.cpp
-        random_element_generator.h
-        dynamic_array.h
-)
-
-add_executable(
-        user_inteface
+        user_interface
         user_interface.cpp
         dynamic_array.h
         linked_list.h

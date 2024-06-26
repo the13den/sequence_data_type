@@ -41,7 +41,7 @@ public:
     T Get(int index) const override;
 
     // Get a subsequence from start_index to end_index
-    ListSequence<T> *GetSubsequence(int start_index, int end_index) const override;
+    ListSequence<T> *GetSubsequence(int start_index, int end_index) override;
 
     // Get the length of the sequence
     int GetSize() const override;
@@ -59,7 +59,7 @@ public:
     ListSequence<T> *InsertAt(int index, T item) override;
 
     // Concatenate two sequences
-    ListSequence<T> *Concat(const Sequence<T> *list) const override;
+    ListSequence<T> *Concat( Sequence<T> *list) override;
 };
 
 
@@ -97,7 +97,7 @@ T ListSequence<T>::Get(int index) const {
 
 template<class T>
 // Get subsequence from start_index to end_index
-ListSequence<T> *ListSequence<T>::GetSubsequence(int start_index, int end_index) const {
+ListSequence<T> *ListSequence<T>::GetSubsequence(int start_index, int end_index) {
     LinkedList<T> *sublist = linked_list.GetSubList(start_index, end_index);
     return new ListSequence<T>(*sublist);
 }
@@ -138,7 +138,7 @@ ListSequence<T>* ListSequence<T>::InsertAt(int index, T item) {
 
 template<class T>
 // Concatenate with another sequence
-ListSequence<T> *ListSequence<T>::Concat(const Sequence<T> *list) const {
+ListSequence<T> *ListSequence<T>::Concat( Sequence<T> *list)  {
     const ListSequence<T> *new_list_seq = dynamic_cast<const ListSequence<T> *>(list);
     if (!new_list_seq) {
         throw std::invalid_argument("ListSequence error: The provided sequence is not a ListSequence");

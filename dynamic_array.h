@@ -9,7 +9,7 @@
 
 // DynamicArray class
 template<class T>
-class DynamicArray : public std::__1::error_code {
+class DynamicArray {
 private:
     int array_size;
     T* array_items;

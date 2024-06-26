@@ -14,49 +14,49 @@ private:
 
 public:
     // Default constructor
-    ArraySequence();
+     ArraySequence();
 
     // Constructor with size and items array
-    ArraySequence(int size, const T *items);
+     ArraySequence(int size, const T *items);
 
     // Constructor with DynamicArray
     ArraySequence(const DynamicArray<T> &array);
 
     // Copy constructor
-    ArraySequence(const ArraySequence<T>& other);
+     ArraySequence(const ArraySequence<T>& other);
 
     // Destructor
-    ~ArraySequence() = default;
+    virtual ~ArraySequence() = default;
 
     // Get the first element of the sequence
-    T GetFirst() const override;
+    virtual T GetFirst() const override;
 
     // Get the last element of the sequence
-    T GetLast() const override;
+    virtual T GetLast() const override;
 
     // Get the element at the specified index
-    T Get(int index) const override;
+    virtual T Get(int index) const override;
 
     // Get a subsequence from start_index to end_index
-    ArraySequence<T> *GetSubsequence(int start_index, int end_index) const override;
+    virtual ArraySequence<T> *GetSubsequence(int start_index, int end_index) override;
 
     // Get the length of the sequence
-    int GetSize() const override;
+    virtual int GetSize() const override;
 
     // Append an element to the end of the sequence
-    ArraySequence<T> *Append(T item) override;
+    virtual ArraySequence<T> *Append(T item) override;
 
     // Prepend an element to the beginning of the sequence
-    ArraySequence<T> *Prepend(T item) override;
+    virtual ArraySequence<T> *Prepend(T item) override;
 
     // Remove an element at the specified index
-    ArraySequence<T> *Remove(int index) override;
+    virtual ArraySequence<T> *Remove(int index) override;
 
     // Insert an element at the specified index
-    ArraySequence<T> *InsertAt(int index, T item) override;
+    virtual ArraySequence<T> *InsertAt(int index, T item) override;
 
     // Concatenate two ArraySequences
-    ArraySequence<T> *Concat(const Sequence<T> *list) const override;
+    virtual ArraySequence<T> *Concat( Sequence<T> *list) override;
 };
 
 // ArraySequence class implementation
@@ -103,7 +103,7 @@ T ArraySequence<T>::Get(int index) const {
 
 // Get subsequence from start_index to end_index
 template<class T>
-ArraySequence<T>* ArraySequence<T>::GetSubsequence(int start_index, int end_index) const {
+ArraySequence<T>* ArraySequence<T>::GetSubsequence(int start_index, int end_index) {
     if (start_index < 0 || end_index >= dynamic_array.GetSize() || start_index > end_index) {
         throw std::out_of_range("Index out of range");
     }
@@ -176,7 +176,7 @@ ArraySequence<T> *ArraySequence<T>::InsertAt(int index, T item) {
 
 // Concatenate with another sequence
 template<class T>
-ArraySequence<T> *ArraySequence<T>::Concat(const Sequence<T> *list) const {
+ArraySequence<T> *ArraySequence<T>::Concat(Sequence<T> *list) {
     ArraySequence* result = new ArraySequence(dynamic_array);
     for (int i = 0; i < list->GetSize(); i++) {
         result->Append(list->Get(i));

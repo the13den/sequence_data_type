@@ -2,13 +2,13 @@
 #define LAB_2_MUTABLE_ARRAY_SEQUENCE_H
 
 #include "dynamic_array.h"
-#include "sequence_class_definition.h"
+#include "array_sequence.h"
 #include <stdexcept>
 #include <type_traits>
 
-// MutableArraySequence class
+// ArraySequence class
 template<class T>
-class MutableArraySequence : public Sequence<T> {
+class MutableArraySequence : public ArraySequence<T> {
 private:
     DynamicArray<T> dynamic_array; // Internal dynamic array to store elements
 
@@ -55,8 +55,8 @@ public:
     // Insert an element at the specified index
     MutableArraySequence<T> *InsertAt(int index, T item) override;
 
-    // Concatenate two MutableArraySequences
-    MutableArraySequence<T> *Concat(const Sequence<T> *list) override;
+    // Concatenate two ArraySequences
+    MutableArraySequence<T> *Concat( Sequence<T> *list) override;
 };
 
 // MutableArraySequence class implementation
@@ -100,7 +100,6 @@ template<class T>
 T MutableArraySequence<T>::Get(int index) const {
     return dynamic_array.Get(index);
 }
-
 // Get subsequence from start_index to end_index
 template<class T>
 MutableArraySequence<T>* MutableArraySequence<T>::GetSubsequence(int start_index, int end_index) {
@@ -118,6 +117,23 @@ MutableArraySequence<T>* MutableArraySequence<T>::GetSubsequence(int start_index
     dynamic_array = new_array;
     return this;
 }
+//// Get subsequence from start_index to end_index
+//template<class T>
+//MutableArraySequence<T>* MutableArraySequence<T>::GetSubsequence(int start_index, int end_index) {
+//    if (start_index < 0 || end_index >= dynamic_array.GetSize() || start_index > end_index) {
+//        throw std::out_of_range("Index out of range");
+//    }
+//
+//    int subsequence_len = end_index - start_index + 1;
+//    T* sub_items = new T[subsequence_len];
+//    for (int i = 0; i < subsequence_len; i++) {
+//        sub_items[i] = dynamic_array.Get(start_index + i);
+//    }
+//
+//    MutableArraySequence* subsequence = new MutableArraySequence(subsequence_len, sub_items);
+//    delete[] sub_items;
+//    return subsequence;
+//}
 
 template<class T>
 // Get sequence length
@@ -176,14 +192,10 @@ MutableArraySequence<T> *MutableArraySequence<T>::InsertAt(int index, T item) {
 
 // Concatenate with another sequence
 template<class T>
-MutableArraySequence<T> *MutableArraySequence<T>::Concat(const Sequence<T> *list) {
-    int original_size = dynamic_array.GetSize();
-    dynamic_array.Resize(original_size + list->GetSize());
-
+MutableArraySequence<T> *MutableArraySequence<T>::Concat(Sequence<T> *list) {
     for (int i = 0; i < list->GetSize(); i++) {
-        dynamic_array.Set(original_size + i, list->Get(i));
+        this->Append(list->Get(i));
     }
-
     return this;
 }
 
